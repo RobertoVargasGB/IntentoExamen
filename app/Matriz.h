@@ -19,13 +19,13 @@ public:
      * Constructor que toma una línea y la transforma en un objeto matriz.
      * @param orig String con el formato de definido en la tarea.
      */
-    Matriz(const std::string& orig);
+    void recibir(const std::string& orig);
 
     /**
      * Constructor que copia una matriz.
      * @param orig Matriz original.
      */
-    Matriz(const Matriz& orig);
+    // Matriz(const Matriz& orig);
 
     /**
      * Destructor virtual
@@ -34,12 +34,12 @@ public:
 
     /**
      * Determina si el cuadrado es mágico o no lo es.
-     * @return 
+     * @return
      */
     bool esMagico();
 
     /**
-     * 
+     *
      * @return Un string con el formato definido.
      */
     std::string toString();
@@ -48,4 +48,3 @@ private:
 };
 
 #endif /* MATRIZ_H */
-

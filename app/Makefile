@@ -20,8 +20,7 @@ all: clean main.o menu.o Matriz.o
 	$(CXX) $(CXXFLAGS) $(LIBS) -o dist/programa build/main.o build/menu.o build/Matriz.o
 	rm -fr build
 
-	./dist/programa -f tmp/datos.txt -o tmp/salida.txt
-
+	mpirun -np 4 ./dist/programa -f tmp/datos.txt -o tmp/salida.txt
 clean:
 	rm -fr *.o a.out programa dist build
 

@@ -13,17 +13,17 @@ Matriz::Matriz() {
     }
 }
 
-Matriz::Matriz(const std::string& orig) {
+void Matriz::recibir(const std::string& orig) {
     try {
         std::string linea(orig.c_str());
         if (!linea.empty()) {
+
             // Quitamos caracters innecesarios
             linea.erase(std::remove(linea.begin(), linea.end(), '['), linea.end());
             linea.erase(std::remove(linea.begin(), linea.end(), ']'), linea.end());
 
             // Obtenemos un token
             std::replace(linea.begin(), linea.end(), ';', ' ');
-
 
             std::vector<std::string> arreglo;
             std::stringstream ss(linea);
@@ -47,6 +47,7 @@ Matriz::Matriz(const std::string& orig) {
                     std::string valor = columnas[j];
                     int numero = atoi(valor.c_str());
                     this->matriz[i][j] = numero;
+
                 }
             }
         }
@@ -59,19 +60,19 @@ Matriz::Matriz(const std::string& orig) {
         }
     }
 }
-
-Matriz::Matriz(const Matriz& orig) {
-    // Se inicializa las filas
-    this->matriz = new int*[LARGO];
-    for (int i = 0; i < LARGO; i++) {
-        // Se inicializan las columnas
-        this->matriz[i] = new int[LARGO];
-
-        for (int j = 0; j < LARGO; j++) {
-            this->matriz[i][j] = orig.matriz[i][j];
-        }
-    }
-}
+//
+// Matriz::Matriz(const Matriz& orig) {
+//     // Se inicializa las filas
+//     this->matriz = new int*[LARGO];
+//     for (int i = 0; i < LARGO; i++) {
+//         // Se inicializan las columnas
+//         this->matriz[i] = new int[LARGO];
+//
+//         for (int j = 0; j < LARGO; j++) {
+//             this->matriz[i][j] = orig.matriz[i][j];
+//         }
+//     }
+// }
 
 Matriz::~Matriz() {
     delete (this->matriz);
