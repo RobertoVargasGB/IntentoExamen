@@ -11,11 +11,11 @@ int main(int argc, char** argv) {
     int returnCode = EXIT_FAILURE;
     int node = 1;
     MPI::Init(argc, argv);
-    MPI::COMM_WORLD.Set_errhandler(MPI::ERRORS_THROW_EXCEPTIONS);
+    //MPI::COMM_WORLD.Set_errhandler(MPI::ERRORS_THROW_EXCEPTIONS);
 
     try {
 
-        if (argc > 4) {
+        if (argc > 4) { // que los argumentos sean 5
             std::string archivo_entrada(obtener_entrada(argv, argc));
             std::string archivo_salida(obtener_salida(argv, argc));
 
@@ -24,18 +24,18 @@ int main(int argc, char** argv) {
                 std::ifstream entrada(archivo_entrada);
                 std::ofstream salida(archivo_salida);
 
-                int size = MPI::COMM_WORLD.Get_size();
-                int rank = MPI::COMM_WORLD.Get_rank();
+                int size = MPI::COMM_WORLD.Get_size(); // cantidad de procesadores
+                int rank = MPI::COMM_WORLD.Get_rank(); // procedor actual
                 if (rank == 0) {
                     // Nodo maestro
                     std::string linea;
                     while (std::getline(entrada, linea)) {
-                        if (node >= size) {
+                        if (node >= size) { // asegura que la informacion se distribuya de forma coorrelativa a los nodos
                             node = 1;
                         }
 
                         // Mandamos datos a los demas nodos
-                        MPI::COMM_WORLD.Send(linea.c_str(), linea.size(), MPI::CHAR, node, 0);
+                        MPI::COMM_WORLD.Send(linea.c_str(), linea.size(), MPI::CHAR, node-1, 0);
                         linea.clear();
 
                         node += 1;
@@ -85,4 +85,3 @@ int main(int argc, char** argv) {
 
     return returnCode;
 }
-
